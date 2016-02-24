@@ -8,7 +8,7 @@ kbn_sankey_vis plugin (Thanks!)
 ![Screenshot](kbn_circles_vis.png)
 (Only one level is shown here, there can be up to two levels for now, have to work on the code some more).
 
-#Installation Steps
+##Installation Steps
 
 (Theses are optional, you can just copy the kbn_circles_vis folder into
 KIBANA_HOME/src/plugins).
@@ -21,6 +21,33 @@ npm run build
 cp -R build/kbn_circles_vis/ KIBANA_HOME/installedPlugins
 ```
 
-#How does it work
+##How does it work
 
-TBC
+Basically, this plugin takes the information from Elasticsearch, generates a JSON structure similar to
+what is expected by the D3 Circle Packing code, which is:
+
+```json
+{
+  "name": "flare",
+  "children": [
+    {
+      "name": "something",
+      "children": [
+        {
+          "name": "some_other",
+          "children": null,
+          "size": 138
+        },
+        {
+          "name": "some_other_other",
+          "children": null,
+          "size": 305
+        }
+      ],
+      "size": 443
+    }
+  }
+```
+And generates two levels of circles. One root, and two other levels, to be exact.
+
+The size of the circles are related to the "size" value.
