@@ -46,7 +46,8 @@ what is expected by the D3 Circle Packing code, which is:
       ],
       "size": 443
     }
-  }
+  ]
+}
 ```
 And generates two levels of circles. One root, and two other levels, to be exact.
 
