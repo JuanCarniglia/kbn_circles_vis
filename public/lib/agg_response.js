@@ -50,6 +50,8 @@ define(function (require) {
       //if (!firstAgg._next) {
       //  notify.error('need more than one sub aggs');
       //}
+      
+      nodes = [];
 
       processEntry(firstAgg, metric, aggData);
 
