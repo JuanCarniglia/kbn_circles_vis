@@ -49,9 +49,9 @@ define(function (require) {
         if (_.size(bucket) > 2) {
           var i = 0;
 
-          while(!bucket[i]) { i++; }
+          while(!bucket[i] && i <= _.size(bucket)) { i++; }
 
-          if (bucket[i].buckets) {
+          if (bucket[i] && bucket[i].buckets) {
             // there are more
                processEntryRecursive(bucket[i], temp_node);
           }
@@ -77,7 +77,9 @@ define(function (require) {
       var firstAgg = children[0];
       var aggData = resp.aggregations[firstAgg.id];
 
-      processEntry(aggData, nodes);
+      nodes = [];
+
+      processEntryRecursive(aggData, nodes);
 
       var chart = {
         'name' :'flare',
