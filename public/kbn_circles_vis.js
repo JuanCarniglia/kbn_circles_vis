@@ -43,7 +43,7 @@ define(function (require) {
           title: 'Levels',
           aggFilter: '!geohash_grid',
           min: 0,
-          max: 2
+          max: 5
         }
       ]),
       requiresSearch: true
