@@ -11,8 +11,8 @@ define(function (require) {
     var svgRoot = $element[0];
     var color = d3.scale.category10();
     var margin = 20;
-    var width = 1000;
-    var height = 800;
+    var width = 100; // In %
+    var height = 100; // In %
     var div;
     var svg;
 
@@ -27,40 +27,48 @@ define(function (require) {
     	.value(function(d) { return d.size; });
 
     var _buildVis = function (data) {
-    	var energy = data;
+
     	div = d3.select(svgRoot);
-    	if (!energy.children.length) return;
+
+    	if (!data.children) return;
 
 	    svg = div.append('svg')
-         .attr('width', width)
-         .attr('height', height + margin)
+         .attr('width',  '"' + width  + '%"')
+         .attr('height', '"' + height + '%"')
          .append('g')
-         .attr('transform', 'translate(' + (width - r) / 2 + ',' + (height - r) / 2 + ')');
+         .attr('transform', 'translate(10, 90)'); // + (width - r) / 2 + ',' + (height - r) / 2 + ')');
 
   	  node = root = data;
 
   	  var nodes = pack.nodes(root);
 
-    	svg.selectAll("circle")
-    		.data(nodes)
-    		.enter().append("svg:circle")
-    		.attr("class", function(d) { return d.children ? "parent" : "child"; })
-    		.attr("cx", function(d) { return d.x; })
-    		.attr("cy", function(d) { return d.y; })
-    		.attr("r", function(d) { return d.r; })
-    		.on("click", function(d) { return zoom(node == d ? root : d); })
-    		.style("fill", function(d) { return color(d.name); });
+      svg.selectAll("circle").data(nodes).enter().append("svg:circle").attr("class", function (d) {
+         return d.children ? "parent" : "child";
+       }).attr("cx", function (d) {
+         return (d.x ? d.x : 0);
+       }).attr("cy", function (d) {
+         return (d.y ? d.y : 0);
+       }).attr("r", function (d) {
+         return (d.r ? d.r : 0);
+       }).on("click", function (d) {
+         return zoom(node == d ? root : d);
+       }).style("fill", function (d) {
+         return color(d.name);
+       });
 
-  	  svg.selectAll("text")
-    		.data(nodes)
-    		.enter().append("svg:text")
-    		.attr("class", function(d) { return d.children ? "parent" : "child"; })
-    		.attr("x", function(d) { return d.x; })
-    		.attr("y", function(d) { return d.y; })
-    		.attr("dy", function(d) { return (d.children ? ".35em" : "-0.35em"); })
-    		.attr("text-anchor", "middle")
-    		.style("opacity", function(d) { return d.r > 20 ? 1 : .5; })
-    		.text(function(d) { return (d.name == "flare" ? "" : d.name); });
+       svg.selectAll("text").data(nodes).enter().append("svg:text").attr("class", function (d) {
+         return d.children ? "parent" : "child";
+       }).attr("x", function (d) {
+         return (d.x ? d.x : 0);
+       }).attr("y", function (d) {
+         return (d.y ? d.y : 0);
+       }).attr("dy", function (d) {
+         return d.children ? ".35em" : "-0.35em";
+       }).attr("text-anchor", "middle").style("opacity", function (d) {
+         return (d.r ? d.r : 0) > 20 ? 1 : .5;
+       }).text(function (d) {
+         return d.name == "flare" ? "" : d.name;
+       });
 
     	d3.select(window).on("click", function() { zoom(root); });
     };
@@ -91,7 +99,7 @@ define(function (require) {
 
     var _render = function (data) {
     	d3.select(svgRoot).selectAll('svg').remove();
-      	_buildVis(data.children);
+      	_buildVis(data);
     };
 
     $scope.$watch('esResponse', function (resp) {
