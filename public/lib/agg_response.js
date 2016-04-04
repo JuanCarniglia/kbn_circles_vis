@@ -42,15 +42,7 @@ define(function (require) {
             bucket = bucket_temp;
           }
         }
-
-
-        var temp_node = null;
-
-        if (bucket.doc_count > 0)
-            temp_node = { 'name': bucket.key, 'size': bucket.doc_count };
-        else
-            temp_node = { 'name': bucket.key};
-
+        var temp_node = { 'children' : null, 'name' : bucket.key, 'size' : bucket.doc_count };
 
         // warning ...
 
@@ -91,7 +83,8 @@ define(function (require) {
 
       var chart = {
         'name' :'flare',
-    	'children' : nodes.children
+    	  'children' : nodes,
+    	  'size' : 0
       };
 
       return chart;
