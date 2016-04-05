@@ -57,3 +57,5 @@ what is expected by the D3 Circle Packing code, which is:
 And generates two levels of circles. One root, and two other levels, to be exact.
 
 The size of the circles are related to the "size" value.
+
+The whole chart (Canvas) can be panned and zoomed in-out.
