@@ -42,6 +42,7 @@ define(function (require) {
             bucket = bucket_temp;
           }
         }
+        
         var temp_node = { 'children' : null, 'name' : bucket.key, 'size' : bucket.doc_count };
 
         // warning ...

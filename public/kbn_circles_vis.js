@@ -21,7 +21,7 @@ define(function (require) {
         defaults: {
           showMetricsAtAllLevels: false
         },
-        editor: '<vislib-basic-options></vislib-basic-options>'
+        editor: require('plugins/kbn_circles_vis/kbn_circles_vis_params.html')
       },
       hierarchicalData: function (vis) {
         return Boolean(vis.params.showPartialRows || vis.params.showMetricsAtAllLevels);
@@ -42,8 +42,8 @@ define(function (require) {
           name: 'segment',
           title: 'Levels',
           aggFilter: '!geohash_grid',
-          min: 0,
-          max: 5
+          min: 1,
+          max: 2
         }
       ]),
       requiresSearch: true
