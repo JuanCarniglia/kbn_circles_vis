@@ -39,7 +39,7 @@ define(function (require) {
             .append('g')
             .attr('transform', 'translate(' + (width - r) / 2 + ',' + (height - r) / 2 + ')')
             .call(d3.behavior.zoom().scaleExtent([-18,18])
-            .on("zoom", zoomB))
+            .on("zoom", zoom))
             .append("g");
 
             node = root = data;
@@ -59,9 +59,6 @@ define(function (require) {
             .style("fill", function (d) {
                 return color(d.name);
             });
-
-            // I chucked this one out, maybe put it back later on
-            //.on("click", function(d) { return ($scope.vis.params.enbleZoom ? (zoom(node == d ? root : d)) : null); })
 
             if ($scope.vis.params.showLabels) {
                 svg.selectAll("text").data(nodes).enter().append("svg:text").attr("class", function (d) {
@@ -101,60 +98,9 @@ define(function (require) {
 
         };
 
-        function zoomB() {
+        function zoom() {
             if ($scope.vis.params.enableZoom) {
                 svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-            }
-        }
-
-        function zoom(d, i) {
-            if ($scope.vis.params.enableZoom) {
-
-                if (!d) return;
-
-                var k = (r / d.r / 2) * curZoomVal;
-
-                x.domain([d.x - d.r, d.x + d.r]);
-                y.domain([d.y - d.r, d.y + d.r]);
-
-                var t = svg.transition().duration(d3.event.altKey ? 7500 : 750);
-
-                t.selectAll("circle").attr("cx", function (d) {
-                    return x(d.x);
-                }).attr("cy", function (d) {
-                    return y(d.y);
-                }).attr("r", function (d) {
-                    return k * d.r;
-                }).style("fill", function (d) {
-                    return color(d.name);
-                });
-
-                t.selectAll("text.parent").attr("x", function (d) {
-                    return x(d.x);
-                }).attr("y", function (d) {
-                    return y(d.y);
-                }).attr("opacity", function (d) {
-                    return k * d.r > 20 ? 1 : 0.2;
-                });
-
-                t.selectAll("text.child").attr("x", function (d) {
-                    return x(d.x);
-                }).attr("y", function (d) {
-                    return y(d.y);
-                }).attr("opacity", function (d) {
-                    return k * d.r > 20 ? 1 : 0.2;
-                });
-
-                t.selectAll("text.value").attr("x", function (d) {
-                    return x(d.x);
-                }).attr("y", function (d) {
-                    return y(d.y + 15);
-                }).attr("opacity", function (d) {
-                    return k * d.r > 20 ? 1 : 0.2;
-                });
-
-                node = d;
-                d3.event.stopPropagation();
             }
         }
 
