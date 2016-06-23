@@ -15,7 +15,6 @@ import pkg from './package.json';
 
 const packageName = pkg.name  + '-' + pkg.version;
 
-// relative location of Kibana install
 const pathToKibana = '../kibana';
 const buildDir = path.resolve(__dirname, 'build');
 const targetDir = path.resolve(__dirname, 'target');
