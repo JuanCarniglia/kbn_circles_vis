@@ -1,6 +1,6 @@
 # Kibana Circles Packing Visualization Plugin
 
-This is a Circles Packing diagram visType for Kibana, version 4.4.1.
+This is a Circles Packing diagram visType for Kibana, version 4.4.1 / 6.0.0-alpha1.
 
 This plugin is based on the excelent work done by @chenryn with the
 kbn_sankey_vis [plugin](https://github.com/chenryn/kbn_sankey_vis) (Thanks!), and of course on the exceptional D3 library,
